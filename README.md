@@ -68,9 +68,9 @@ cd ~/bluerov_ws
 source install/setup.bash
 
 parallel --lb --halt now,fail=1 ::: \
-  "ros2 launch autonomous_rov run_mavros.launch.py" \
-  "ros2 launch autonomous_rov run_listener.launch.py" \
-  "ros2 launch autonomous_rov run_gamepad.launch.py" \
+  "ros2 launch autonomous_rov run_mavros.launch" \
+  "ros2 launch autonomous_rov run_listener.launch" \
+  "ros2 launch autonomous_rov run_gamepad.launch" \
   "ros2 run autonomous_rov video"
 ```
 ## Command Breakdown

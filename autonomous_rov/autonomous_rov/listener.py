@@ -20,8 +20,8 @@ from geometry_msgs.msg import Twist
 
 class MyPythonNode(Node):
     def __init__(self):
-        super().__init__("listenerMIR")
-        self.get_logger().info("This node is named listenerMIR")
+        super().__init__("listener")
+        self.get_logger().info("This node is named listener")
 
         self.ns = self.get_namespace()
         self.get_logger().info("namespace =" + self.ns)

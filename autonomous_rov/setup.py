@@ -20,13 +20,13 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='Shahid Ahamed Hasib',
-    maintainer_email='shahidhasib586@todo.todo',
+    maintainer_email='shahidhasib586@gmail.com',
     description='Autonomous ROV Package',
     license='Apache License 2.0',
     tests_require=['pytest'],
     entry_points={
     'console_scripts': [
-        'listenerMIR = autonomous_rov.listenerMIR:main',
+        'listener = autonomous_rov.listener:main',
         'video = autonomous_rov.video:main',
         'pinger_node = autonomous_rov.pinger_node:main',
         'image_processing_tracker = autonomous_rov.image_processing_tracker:main'

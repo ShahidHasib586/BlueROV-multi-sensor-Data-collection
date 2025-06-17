@@ -200,7 +200,7 @@ ros2 bag play camera_bag   --remap /image_raw/compressed:=/playback/image_raw/co
 ```
 ## open viwer
 ```bash
-ros2 run rqt_image_view
+ros2 run rqt_image_view rqt_image_view
 ```
 
 

@@ -116,9 +116,9 @@ bluerov_ws/
 │ └── setup.py # Python build config
 └── ...
 ```
-##🎥 How to Record and Play a ROS 2 Bag from Camera
+## 🎥 How to Record and Play a ROS 2 Bag from Camera
 
-##🔍 Step 1: Find the Actual Image Topic
+## 🔍 Step 1: Find the Actual Image Topic
 
 First, list available image-related topics:
 ```bash
@@ -134,7 +134,7 @@ You should see:
 
 Type: sensor_msgs/msg/Image
 
-## 📀 Step 2: Record the Image Topic to a Bag
+### 📀 Step 2: Record the Image Topic to a Bag
 
 To start recording:
 ```bash

@@ -180,10 +180,28 @@ ros2 run v4l2_camera v4l2_camera_node
 ros2 run rqt_image_view rqt_image_view
 ```
 
+## Save both camera data:
 
+# run the following to confirm the topic
 
+```bash
+ros2 topic list | grep image
+```
+## save the recordng in a folder
+```bash
+ros2 bag record -o camera_bag /image_raw/compressed /camera/image
+```
+## See the replay:
 
+## remap and play
 
+```bash
+ros2 bag play camera_bag   --remap /image_raw/compressed:=/playback/image_raw/compressed           /camera/image:=/playback/camera/image --loop
+```
+## open viwer
+```bash
+ros2 run rqt_image_view
+```
 
 
 

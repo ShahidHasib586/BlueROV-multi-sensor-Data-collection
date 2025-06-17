@@ -116,4 +116,49 @@ bluerov_ws/
 │ └── setup.py # Python build config
 └── ...
 ```
+##🎥 How to Record and Play a ROS 2 Bag from Camera
+
+##🔍 Step 1: Find the Actual Image Topic
+
+First, list available image-related topics:
+```bash
+ros2 topic list | grep image
+```
+Look for something like /camera/image — this is usually the actual image stream.
+
+To verify that it publishes camera data, run:
+```bash
+ros2 topic info /camera/image
+```
+You should see:
+
+Type: sensor_msgs/msg/Image
+
+## 📀 Step 2: Record the Image Topic to a Bag
+
+To start recording:
+```bash
+ros2 bag record -o my_camera_bag /camera/image
+```
+Replace my_camera_bag with your desired folder name.
+
+Press Ctrl+C to stop recording.
+
+## ▶️ Step 3: Play the Bag
+
+To play back the recorded video:
+```bash
+ros2 bag play my_camera_bag --loop
+```
+The --loop option will continuously replay the bag.
+
+Remove --loop if you only want to play it once.
+
+## 🖼 Step 4: View the Camera Video
+
+In a separate terminal, run:
+```bash
+ros2 run rqt_image_view rqt_image_view
+```
+Then select /camera/image from the topic list to view the video stream.
 

@@ -163,3 +163,49 @@ ros2 run rqt_image_view rqt_image_view
 ```
 Then select /camera/image from the topic list to view the video stream.
 
+## Want to test your laptop camera as well?
+
+### install the following
+```bash
+sudo apt install ros-jazzy-v4l2-camera # my distro is jazzy, replace the name with your distro (ex: humble)
+```
+## Than run the following command:
+
+```bash
+ros2 run v4l2_camera v4l2_camera_node
+```
+## On a reperate terminal run:
+
+```bash
+ros2 run rqt_image_view rqt_image_view
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

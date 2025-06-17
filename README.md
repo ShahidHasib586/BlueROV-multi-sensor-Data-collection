@@ -174,7 +174,7 @@ sudo apt install ros-jazzy-v4l2-camera # my distro is jazzy, replace the name wi
 ```bash
 ros2 run v4l2_camera v4l2_camera_node
 ```
-## On a reperate terminal run:
+## On a seperate terminal run:
 
 ```bash
 ros2 run rqt_image_view rqt_image_view

@@ -117,7 +117,7 @@ bluerov_ws/
 │ └── setup.py # Python build config
 └── ...
 ```
-# 🎥 How to Record and Play a ROS 2 Bag from Camera
+## 🎥 How to Record and Play a ROS 2 Bag from Camera
 
 ## 🔍 Step 1: Find the Actual Image Topic
 

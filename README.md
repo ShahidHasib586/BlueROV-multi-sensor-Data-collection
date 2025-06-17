@@ -11,6 +11,7 @@ ROS 2 package for autonomous control of BlueROV underwater vehicles, featuring M
   - [Parallel Execution](#parallel-execution-recommended)
   - [Individual Components](#individual-components)
 - [Package Structure](#package-structure)
+- [Collecting data from camera] (#🎥How-to-Record-and-Play-a-ROS-2-Bag-from-Camera)
 
 
 ## Features
@@ -116,9 +117,9 @@ bluerov_ws/
 │ └── setup.py # Python build config
 └── ...
 ```
-## 🎥 How to Record and Play a ROS 2 Bag from Camera
+# 🎥 How to Record and Play a ROS 2 Bag from Camera
 
-# 🔍 Step 1: Find the Actual Image Topic
+## 🔍 Step 1: Find the Actual Image Topic
 
 First, list available image-related topics:
 ```bash
@@ -134,7 +135,7 @@ You should see:
 
 Type: sensor_msgs/msg/Image
 
-# 📀 Step 2: Record the Image Topic to a Bag
+## 📀 Step 2: Record the Image Topic to a Bag
 
 To start recording:
 ```bash
@@ -144,7 +145,7 @@ Replace my_camera_bag with your desired folder name.
 
 Press Ctrl+C to stop recording.
 
-# ▶️ Step 3: Play the Bag
+## ▶️ Step 3: Play the Bag
 
 To play back the recorded video:
 ```bash
@@ -154,7 +155,7 @@ The --loop option will continuously replay the bag.
 
 Remove --loop if you only want to play it once.
 
-# 🖼 Step 4: View the Camera Video
+## 🖼 Step 4: View the Camera Video
 
 In a separate terminal, run:
 ```bash

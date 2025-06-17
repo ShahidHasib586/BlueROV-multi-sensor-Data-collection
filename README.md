@@ -11,7 +11,7 @@ ROS 2 package for autonomous control of BlueROV underwater vehicles, featuring M
   - [Parallel Execution](#parallel-execution-recommended)
   - [Individual Components](#individual-components)
 - [Package Structure](#package-structure)
-- [🎥How to Record and Play a ROS 2 Bag from Camera](#how-to-record-and-Play-a-ROS-2-Bag-from-Camera)
+- [🎥How to Record and Play a ROS 2 Bag from Camera](#how-to-record-and-play-a-ros-2-bag-from-camera)
 
 
 ## Features
@@ -117,7 +117,7 @@ bluerov_ws/
 │ └── setup.py # Python build config
 └── ...
 ```
-## 🎥 How to Record and Play a ROS 2 Bag from Camera
+# 🎥 How to Record and Play a ROS 2 Bag from Camera
 
 ## 🔍 Step 1: Find the Actual Image Topic
 

@@ -247,6 +247,16 @@ ros2 bag record /bluerov/image /usb_cam/image -o multivideo_bag
   -o multivideo_bag: name of the output bag directory
 
 
+### Play Back the Bag File
+
+To replay later:
+```bash
+ros2 bag play multivideo_bag --loop #remove loop option if you don't want to play in a loop
+```
+in another terminal run
+```bash
+ros2 run rqt_image_view rqt_image_view
+```
 
 
 

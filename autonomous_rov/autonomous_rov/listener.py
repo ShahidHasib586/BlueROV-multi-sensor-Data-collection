@@ -466,7 +466,7 @@ class MyPythonNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = MyPythonNode()
-    executor = MultiThreadedExecutor(num_threads=4)  # or any number of threads you want
+    executor = MultiThreadedExecutor(num_threads=1)  # or any number of threads you want
     executor.add_node(node)
     try:
         executor.spin()

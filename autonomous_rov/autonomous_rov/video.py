@@ -187,7 +187,7 @@ class Controller(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = Controller()
-    executor = MultiThreadedExecutor(num_threads=4)  # choose number of threads you want
+    executor = MultiThreadedExecutor(num_threads=1)  # choose number of threads you want
     executor.add_node(node)
     try:
         executor.spin()

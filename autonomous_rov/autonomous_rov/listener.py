@@ -13,7 +13,7 @@ from mavros_msgs.srv import CommandLong, SetMode, StreamRate
 from mavros_msgs.msg import OverrideRCIn, Mavlink
 from mavros_msgs.srv import EndpointAdd
 from geometry_msgs.msg import Twist
-
+from rclpy.executors import MultiThreadedExecutor
 
 # from waterlinked_a50_ros_driver.msg import DVL
 # from waterlinked_a50_ros_driver.msg import DVLBeam
@@ -454,12 +454,26 @@ class MyPythonNode(Node):
         self.get_logger().info("Subscriptions done.")
 
 
+
+"""
 def main(args=None):
     rclpy.init(args=args)
     node = MyPythonNode()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
+"""
+def main(args=None):
+    rclpy.init(args=args)
+    node = MyPythonNode()
+    executor = MultiThreadedExecutor(num_threads=4)  # or any number of threads you want
+    executor.add_node(node)
+    try:
+        executor.spin()
+    finally:
+        executor.shutdown()
+        node.destroy_node()
+        rclpy.shutdown()
 
 
 if __name__ == "__main__":

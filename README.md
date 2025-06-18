@@ -203,7 +203,29 @@ ros2 bag play camera_bag   --remap /image_raw/compressed:=/playback/image_raw/co
 ros2 run rqt_image_view rqt_image_view
 ```
 
+## Install usb camera in blueROV
 
+login to the blueROV terminal
+
+```bash
+ssh pi@192.168.2.2
+pass: raspberry
+```
+#### Then check if the webcam is detected:
+```bash
+ls /dev/video*
+dmesg | grep -i usb
+lsusb
+```
+### If you see /dev/video4 (or similar), the webcam is recognized.
+
+Verify UDP Streams Are Live
+
+Make sure both streams are actively sending data:
+
+    BlueROV on port 5600
+
+    USB camera on port 5602
 
 
 

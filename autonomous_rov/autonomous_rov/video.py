@@ -6,6 +6,7 @@ import gi
 import numpy as np
 from sensor_msgs.msg import Image #new This line imports the ROS 2 message type 
 from cv_bridge import CvBridge  #new converting between ROS Image messages and OpenCV images (numpy arrays).
+from rclpy.executors import MultiThreadedExecutor
 
 gi.require_version('Gst', '1.0')
 from gi.repository import Gst
@@ -172,16 +173,31 @@ class Controller(Node):
         img = cv2.rectangle(img,(0, height-100),(520,height),(0,0,0),-1)
         
 
+#def main(args=None):
+    #rclpy.init(args=args)    
+    #node = Controller()
+    #try:
+        #rclpy.spin(node)
+    #except KeyboardInterrupt:
+        #pass
+    #finally:
+        #node.destroy_node()
+        #rclpy.shutdown()
+
 def main(args=None):
-    rclpy.init(args=args)    
+    rclpy.init(args=args)
     node = Controller()
+    executor = MultiThreadedExecutor(num_threads=4)  # choose number of threads you want
+    executor.add_node(node)
     try:
-        rclpy.spin(node)
+        executor.spin()
     except KeyboardInterrupt:
         pass
     finally:
+        executor.shutdown()
         node.destroy_node()
         rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()

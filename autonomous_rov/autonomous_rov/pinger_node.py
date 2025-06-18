@@ -5,6 +5,7 @@ import argparse
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float64MultiArray
+from rclpy.executors import MultiThreadedExecutor
 
 class PingNode(Node):
     def __init__(self, ping):
@@ -59,12 +60,27 @@ print("Press CTRL+C to exit")
 print("------------------------------------")
 input("Press Enter to continue...")
 
+#def main():
+	#rclpy.init()
+	#pinger_node = PingNode(myPing)
+	#rclpy.spin(pinger_node)
+	#pinger_node.destroy_node()
+	#rclpy.shutdown()
+
+
 def main():
-	rclpy.init()
-	pinger_node = PingNode(myPing)
-	rclpy.spin(pinger_node)
-	pinger_node.destroy_node()
-	rclpy.shutdown()
+    rclpy.init()
+    pinger_node = PingNode(myPing)
+    executor = MultiThreadedExecutor(num_threads=4)  # or another number
+    executor.add_node(pinger_node)
+    try:
+        executor.spin()
+    finally:
+        executor.shutdown()
+        pinger_node.destroy_node()
+        rclpy.shutdown()
+
+
 
 if __name__ == '__main__':
 	main()

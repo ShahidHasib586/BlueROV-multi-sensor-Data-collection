@@ -240,11 +240,11 @@ Run this in a terminal:
 ```bash
 ros2 bag record /bluerov/image /usb_cam/image -o multivideo_bag
 ```
-    ros2 bag record: the command to start recording
+  ros2 bag record: the command to start recording
 
-    /bluerov/image /usb_cam/image: the image topics
+  /bluerov/image /usb_cam/image: the image topics
 
-    -o multivideo_bag: name of the output bag directory
+  -o multivideo_bag: name of the output bag directory
 
 
 

@@ -224,11 +224,16 @@ Verify UDP Streams Are Live
 Make sure both streams are actively sending data:
 
     BlueROV on port 5600
-
     USB camera on port 5602
 
-
-
+Use this to check traffic:
+```bash
+sudo tcpdump -i any port 5600
+```
+### To run both camera:
+```bash
+ros2 run autonomous_rov multivideo
+```
 
 
 

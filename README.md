@@ -234,7 +234,17 @@ sudo tcpdump -i any port 5600
 ```bash
 ros2 run autonomous_rov multivideo
 ```
+## Record Bag File from Both Topics
 
+Run this in a terminal:
+```bash
+ros2 bag record /bluerov/image /usb_cam/image -o multivideo_bag
+```
+    ros2 bag record: the command to start recording
+
+    /bluerov/image /usb_cam/image: the image topics
+
+    -o multivideo_bag: name of the output bag directory
 
 
 

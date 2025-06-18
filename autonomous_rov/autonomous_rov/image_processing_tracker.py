@@ -165,7 +165,7 @@ def main(args=None):
     rclpy.init(args=args)
     node = ImageProcessingNode()
 
-    executor = MultiThreadedExecutor(num_threads=4)  # Use 4 threads or whatever fits your needs
+    executor = MultiThreadedExecutor(num_threads=1)  # Use 4 threads or whatever fits your needs
     executor.add_node(node)
 
     try:

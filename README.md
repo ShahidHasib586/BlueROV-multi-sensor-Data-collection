@@ -258,9 +258,30 @@ in another terminal run
 ros2 run rqt_image_view rqt_image_view
 ```
 
+### convert them to mp4
+I have created one python file for this, 
 
+bag_to_video.py
 
+to run this you may require to downdgrade the numpy version:
 
+```bash
+pip install "numpy<2"
+```
+Than run:
+```bash
+python3 bag_to_video.py \
+  --bag multivideo_bag \
+  --topic /bluerov/image \
+  --out bluerov_camera.mp4
+```
+and for usb camera:
+```bash
+python3 bag_to_video.py \
+  --bag multivideo_bag \
+  --topic /usb_cam/image \
+  --out usb_camera.mp4
+```
 
 
 

@@ -8,6 +8,7 @@ import numpy as np
 import cv2
 from . import camera_parameters as cam
 from cv_bridge import CvBridge
+from rclpy.executors import MultiThreadedExecutor
 
 def on_trackbar_change(x):
     pass
@@ -147,15 +148,32 @@ class ImageProcessingNode(Node):
         cv2.imshow("image", image_np)
         cv2.waitKey(2)
 
+#def main(args=None):
+    #rclpy.init(args=args)
+    #node = ImageProcessingNode()
+
+    #try:
+        #rclpy.spin(node)
+    #xcept KeyboardInterrupt:
+        #pass
+    #finally:
+        #node.destroy_node()
+        #rclpy.shutdown()
+
+
 def main(args=None):
     rclpy.init(args=args)
     node = ImageProcessingNode()
 
+    executor = MultiThreadedExecutor(num_threads=4)  # Use 4 threads or whatever fits your needs
+    executor.add_node(node)
+
     try:
-        rclpy.spin(node)
+        executor.spin()
     except KeyboardInterrupt:
         pass
     finally:
+        executor.shutdown()
         node.destroy_node()
         rclpy.shutdown()
 

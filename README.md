@@ -1,4 +1,4 @@
-# BlueROV Autonomous Control System
+# BlueROV multi-sensor Data collection
 
 ![ROS 2](https://img.shields.io/badge/ROS-2-%230A0FF9) ![License](https://img.shields.io/badge/License-Apache%202.0-blue)
 

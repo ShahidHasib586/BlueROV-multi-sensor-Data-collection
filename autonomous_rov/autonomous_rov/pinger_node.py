@@ -71,7 +71,7 @@ input("Press Enter to continue...")
 def main():
     rclpy.init()
     pinger_node = PingNode(myPing)
-    executor = MultiThreadedExecutor(num_threads=4)  # or another number
+    executor = MultiThreadedExecutor(num_threads=1)  # or another number
     executor.add_node(pinger_node)
     try:
         executor.spin()

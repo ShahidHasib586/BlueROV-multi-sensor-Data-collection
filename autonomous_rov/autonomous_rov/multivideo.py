@@ -53,7 +53,10 @@ class BlueROVCamera(Node):
         self.get_logger().info("BlueROV camera stream opened")
 
     def timer_callback(self):
+        thread_id = threading.get_ident()
+        self.get_logger().info(f"Running on thread ID: {thread_id}")
         frame = self.cap.read()
+        #time.sleep(1.0)  # Simulate processing delay
         if frame is not None:
             msg = self.bridge.cv2_to_imgmsg(frame, encoding='bgr8')
             self.publisher.publish(msg)
@@ -78,7 +81,10 @@ class USBCamera(Node):
         self.latest_frame = None
 
     def timer_callback(self):
+        thread_id = threading.get_ident()
+        self.get_logger().info(f"Running on thread ID: {thread_id}")
         ret, frame = self.cap.read()
+        #time.sleep(1.0)  # Simulate processing delay
         if ret:
             msg = self.bridge.cv2_to_imgmsg(frame, encoding='bgr8')
             self.publisher.publish(msg)
@@ -125,5 +131,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
-

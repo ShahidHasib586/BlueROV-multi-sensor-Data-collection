@@ -68,7 +68,8 @@ def main(args=None):
     try:
         while rclpy.ok():
             # Process ROS messages
-            rclpy.spin_once(executor, timeout_sec=0.01)
+            #rclpy.spin_once(executor, timeout_sec=0.01)
+            executor.spin_once(timeout_sec=0.01)
 
             # Display frames in the main thread
             if bluerov_node.latest_frame is not None:

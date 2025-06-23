@@ -1,73 +1,58 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-import cv2
+from rclpy.executors import MultiThreadedExecutor
+
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
-from rclpy.executors import MultiThreadedExecutor
+import cv2
+import time
+
 
 class BlueROVCamera(Node):
     def __init__(self):
         super().__init__('bluerov_camera_node')
+        self.publisher = self.create_publisher(Image, 'bluerov_camera/image_raw', 10)
+        self.timer = self.create_timer(0.03, self.timer_callback)  # ~30 FPS
         self.bridge = CvBridge()
-        self.publisher = self.create_publisher(Image, 'bluerov/image', 10)
-
-        # GStreamer pipeline for UDP stream
-        self.cap = cv2.VideoCapture(
-            "udpsrc port=5600 ! application/x-rtp, payload=96 ! rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink",
-            cv2.CAP_GSTREAMER
-        )
-
+        self.cap = cv2.VideoCapture("udpsrc port=5600 ! application/x-rtp, encoding-name=H264 ! rtph264depay ! avdec_h264 ! videoconvert ! appsink", cv2.CAP_GSTREAMER)
         if not self.cap.isOpened():
-            self.get_logger().error("Could not open BlueROV camera stream")
+            self.get_logger().error("Failed to open BlueROV camera stream.")
         else:
             self.get_logger().info("BlueROV camera stream opened")
-
-        self.timer = self.create_timer(1.0 / 30, self.timer_callback)
+        self.latest_frame = None
 
     def timer_callback(self):
         ret, frame = self.cap.read()
         if ret:
-            cv2.imshow("BlueROV Camera", frame)
             msg = self.bridge.cv2_to_imgmsg(frame, encoding='bgr8')
             self.publisher.publish(msg)
-            self.get_logger().info("Frame received")
+            self.latest_frame = frame
         else:
-            self.get_logger().warn("No frame from BlueROV camera")
-
-        cv2.waitKey(1)
+            self.get_logger().warn("No frame received from BlueROV camera")
 
 
 class USBCamera(Node):
     def __init__(self):
         super().__init__('usb_camera_node')
+        self.publisher = self.create_publisher(Image, 'usb_camera/image_raw', 10)
+        self.timer = self.create_timer(0.03, self.timer_callback)  # ~30 FPS
         self.bridge = CvBridge()
-        self.publisher = self.create_publisher(Image, 'usb_cam/image', 10)
-
-        # GStreamer pipeline for UDP stream
-        self.cap = cv2.VideoCapture(
-            "udpsrc port=5602 ! application/x-rtp, encoding-name=JPEG,payload=26 ! rtpjpegdepay ! jpegdec ! videoconvert ! appsink",
-            cv2.CAP_GSTREAMER
-        )
-
+        self.cap = cv2.VideoCapture(0)  # Change index if needed
         if not self.cap.isOpened():
-            self.get_logger().error("Could not open USB camera at /dev/video4")
+            self.get_logger().error("Failed to open USB camera.")
         else:
             self.get_logger().info("USB camera opened")
-
-        self.timer = self.create_timer(1.0 / 30, self.timer_callback)
+        self.latest_frame = None
 
     def timer_callback(self):
         ret, frame = self.cap.read()
         if ret:
-            cv2.imshow("USB Camera", frame)
             msg = self.bridge.cv2_to_imgmsg(frame, encoding='bgr8')
             self.publisher.publish(msg)
-            self.get_logger().info("Frame received")
+            self.latest_frame = frame
         else:
-            self.get_logger().warn("No frame from USB camera")
-
-        cv2.waitKey(1)
+            self.get_logger().warn("No frame received from USB camera")
 
 
 def main(args=None):
@@ -76,15 +61,32 @@ def main(args=None):
     bluerov_node = BlueROVCamera()
     usb_node = USBCamera()
 
-    executor = MultiThreadedExecutor(num_threads=1)
+    executor = MultiThreadedExecutor(num_threads=2)
     executor.add_node(bluerov_node)
     executor.add_node(usb_node)
 
     try:
-        executor.spin()
+        while rclpy.ok():
+            # Process ROS messages
+            rclpy.spin_once(executor, timeout_sec=0.01)
+
+            # Display frames in the main thread
+            if bluerov_node.latest_frame is not None:
+                cv2.imshow("BlueROV Camera", bluerov_node.latest_frame)
+
+            if usb_node.latest_frame is not None:
+                cv2.imshow("USB Camera", usb_node.latest_frame)
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+            time.sleep(0.01)
+
     except KeyboardInterrupt:
         pass
     finally:
+        bluerov_node.cap.release()
+        usb_node.cap.release()
         bluerov_node.destroy_node()
         usb_node.destroy_node()
         rclpy.shutdown()
@@ -93,3 +95,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+

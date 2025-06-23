@@ -6,25 +6,55 @@ from rclpy.executors import MultiThreadedExecutor
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 import cv2
+import threading
 import time
+
+# ✅ Custom wrapper to always get the latest frame
+class BufferlessCapture:
+    def __init__(self, src, backend=cv2.CAP_GSTREAMER):
+        self.cap = cv2.VideoCapture(src, backend)
+        self.frame = None
+        self.lock = threading.Lock()
+        self.running = True
+        t = threading.Thread(target=self._reader, daemon=True)
+        t.start()
+
+    def _reader(self):
+        while self.running:
+            ret, frame = self.cap.read()
+            if ret:
+                with self.lock:
+                    self.frame = frame
+
+    def read(self):
+        with self.lock:
+            return self.frame
+
+    def release(self):
+        self.running = False
+        self.cap.release()
 
 
 class BlueROVCamera(Node):
     def __init__(self):
         super().__init__('bluerov_camera_node')
         self.publisher = self.create_publisher(Image, 'bluerov_camera/image_raw', 10)
-        self.timer = self.create_timer(0.03, self.timer_callback)  # ~30 FPS
+        self.timer = self.create_timer(0.03, self.timer_callback)
         self.bridge = CvBridge()
-        self.cap = cv2.VideoCapture("udpsrc port=5600 ! application/x-rtp, encoding-name=H264 ! rtph264depay ! avdec_h264 ! videoconvert ! appsink", cv2.CAP_GSTREAMER)
-        if not self.cap.isOpened():
-            self.get_logger().error("Failed to open BlueROV camera stream.")
-        else:
-            self.get_logger().info("BlueROV camera stream opened")
+
+        # ✅ Use BufferlessCapture for smoother stream
+        gstreamer_pipeline = (
+            "udpsrc port=5600 ! application/x-rtp, encoding-name=H264 ! "
+            "rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink"
+        )
+
+        self.cap = BufferlessCapture(gstreamer_pipeline)
         self.latest_frame = None
+        self.get_logger().info("BlueROV camera stream opened")
 
     def timer_callback(self):
-        ret, frame = self.cap.read()
-        if ret:
+        frame = self.cap.read()
+        if frame is not None:
             msg = self.bridge.cv2_to_imgmsg(frame, encoding='bgr8')
             self.publisher.publish(msg)
             self.latest_frame = frame
@@ -36,13 +66,15 @@ class USBCamera(Node):
     def __init__(self):
         super().__init__('usb_camera_node')
         self.publisher = self.create_publisher(Image, 'usb_camera/image_raw', 10)
-        self.timer = self.create_timer(0.03, self.timer_callback)  # ~30 FPS
+        self.timer = self.create_timer(0.03, self.timer_callback)
         self.bridge = CvBridge()
-        self.cap = cv2.VideoCapture(0)  # Change index if needed
+
+        self.cap = cv2.VideoCapture(0)
         if not self.cap.isOpened():
             self.get_logger().error("Failed to open USB camera.")
         else:
             self.get_logger().info("USB camera opened")
+
         self.latest_frame = None
 
     def timer_callback(self):
@@ -67,11 +99,8 @@ def main(args=None):
 
     try:
         while rclpy.ok():
-            # Process ROS messages
-            #rclpy.spin_once(executor, timeout_sec=0.01)
-            executor.spin_once(timeout_sec=0.01)
+            executor.spin_once(timeout_sec=0.001)
 
-            # Display frames in the main thread
             if bluerov_node.latest_frame is not None:
                 cv2.imshow("BlueROV Camera", bluerov_node.latest_frame)
 
@@ -81,7 +110,7 @@ def main(args=None):
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
-            time.sleep(0.01)
+            time.sleep(0.005)
 
     except KeyboardInterrupt:
         pass
@@ -96,4 +125,5 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
 

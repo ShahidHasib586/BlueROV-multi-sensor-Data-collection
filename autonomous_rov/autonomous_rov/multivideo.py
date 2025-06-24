@@ -72,7 +72,12 @@ class USBCamera(Node):
         self.timer = self.create_timer(0.03, self.timer_callback)
         self.bridge = CvBridge()
 
-        self.cap = cv2.VideoCapture(0)
+        
+        # GStreamer pipeline for UDP stream
+        self.cap = cv2.VideoCapture(
+            "udpsrc port=5602 ! application/x-rtp, encoding-name=JPEG,payload=26 ! rtpjpegdepay ! jpegdec ! videoconvert ! appsink",
+            cv2.CAP_GSTREAMER
+        )
         if not self.cap.isOpened():
             self.get_logger().error("Failed to open USB camera.")
         else:
@@ -103,10 +108,12 @@ def main(args=None):
     executor.add_node(bluerov_node)
     executor.add_node(usb_node)
 
+    # Start executor in a separate thread
+    executor_thread = threading.Thread(target=executor.spin, daemon=True)
+    executor_thread.start()
+
     try:
         while rclpy.ok():
-            executor.spin_once(timeout_sec=0.001)
-
             if bluerov_node.latest_frame is not None:
                 cv2.imshow("BlueROV Camera", bluerov_node.latest_frame)
 
@@ -127,6 +134,7 @@ def main(args=None):
         usb_node.destroy_node()
         rclpy.shutdown()
         cv2.destroyAllWindows()
+
 
 
 if __name__ == '__main__':

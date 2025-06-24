@@ -223,10 +223,12 @@ Verify UDP Streams Are Live
 
 Make sure both streams are actively sending data:
 
-    BlueROV on port 5600
-    USB camera on port 5602
+  BlueROV on port 5600
+  USB camera on port 5602
+## Sometimes a stale lock or bad state causes issues:
 
-Use this to check traffic:
+    sudo fuser -k 5600/udp
+
 ```bash
 sudo tcpdump -i any port 5600
 ```

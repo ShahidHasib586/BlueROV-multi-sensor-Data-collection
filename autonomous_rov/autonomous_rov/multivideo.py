@@ -9,7 +9,7 @@ import cv2
 import threading
 import time
 
-# ✅ Custom wrapper to always get the latest frame
+# Custom wrapper to always get the latest frame
 class BufferlessCapture:
     def __init__(self, src, backend=cv2.CAP_GSTREAMER):
         self.cap = cv2.VideoCapture(src, backend)
@@ -42,7 +42,7 @@ class BlueROVCamera(Node):
         self.timer = self.create_timer(0.03, self.timer_callback)
         self.bridge = CvBridge()
 
-        # ✅ Use BufferlessCapture for smoother stream
+        #  Use BufferlessCapture for smoother stream
         gstreamer_pipeline = (
             "udpsrc port=5600 ! application/x-rtp, encoding-name=H264 ! "
             "rtph264depay ! h264parse ! avdec_h264 ! videoconvert ! appsink"

@@ -74,10 +74,8 @@ class USBCamera(Node):
 
         
         # GStreamer pipeline for UDP stream
-        self.cap = cv2.VideoCapture(
-            "udpsrc port=5602 ! application/x-rtp, encoding-name=JPEG,payload=26 ! rtpjpegdepay ! jpegdec ! videoconvert ! appsink",
-            cv2.CAP_GSTREAMER
-        )
+        self.cap = cv2.VideoCapture('/dev/video1') 
+
         if not self.cap.isOpened():
             self.get_logger().error("Failed to open USB camera.")
         else:
@@ -106,7 +104,7 @@ class PCCamera(Node):
 
         
         # GStreamer pipeline for UDP stream
-        self.cap = cv2.VideoCapture('/dev/video4')
+        self.cap = cv2.VideoCapture('/dev/video6')
 
         if not self.cap.isOpened():
             self.get_logger().error("Failed to open PC camera.")
@@ -148,10 +146,10 @@ def main(args=None):
         while rclpy.ok():
             if bluerov_node.latest_frame is not None:
                 cv2.imshow("BlueROV Camera", bluerov_node.latest_frame)
-
+            
             if usb_node.latest_frame is not None:
                 cv2.imshow("USB Camera", usb_node.latest_frame)
-
+            
             if pc_node.latest_frame is not None:
                 cv2.imshow("PC Camera", pc_node.latest_frame)
 

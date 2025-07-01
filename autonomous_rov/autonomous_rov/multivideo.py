@@ -74,7 +74,7 @@ class USBCamera(Node):
 
         
         # GStreamer pipeline for UDP stream
-        self.cap = cv2.VideoCapture('/dev/video1') 
+        self.cap = cv2.VideoCapture('/dev/video4') 
 
         if not self.cap.isOpened():
             self.get_logger().error("Failed to open USB camera.")
@@ -104,7 +104,7 @@ class PCCamera(Node):
 
         
         # GStreamer pipeline for UDP stream
-        self.cap = cv2.VideoCapture('/dev/video6')
+        self.cap = cv2.VideoCapture('/dev/video7')
 
         if not self.cap.isOpened():
             self.get_logger().error("Failed to open PC camera.")

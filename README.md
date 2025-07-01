@@ -284,8 +284,13 @@ python3 bag_to_video.py \
   --topic /usb_cam/image \
   --out usb_camera.mp4
 ```
+## Record from multiple video and play from usb hdd
 
-
+```bash
+ros2 bag play /media/shahidhasib586/LaCie/rosbags/multivideo_bag --loop 
+ros2 run rqt_image_view rqt_image_view
+ros2 bag record /bluerov_camera/image_raw /pc_camera/image_raw /usb_camera/image_raw -o /media/shahidhasib586/LaCie/rosbags/multivideo_bag
+```
 
 
 

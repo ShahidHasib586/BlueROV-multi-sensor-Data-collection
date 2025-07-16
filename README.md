@@ -11,7 +11,7 @@ ROS 2 package for autonomous control of BlueROV underwater vehicles, featuring M
   - [Parallel Execution](#parallel-execution-recommended)
   - [Individual Components](#individual-components)
 - [🎥How to Record and Play a ROS 2 Bag from Camera](#how-to-record-and-play-a-ros-2-bag-from-camera)
-- [Using Ping soner 360]
+- [Using Ping soner 360](#ping360)
 - [Package Structure](#package-structure)
 
 ## Features
@@ -293,7 +293,7 @@ ros2 bag record /bluerov_camera/image_raw /pc_camera/image_raw /usb_camera/image
 ```
 
 
-
+## ping360
 ### How to use ping soner360!!!
 
 ## Build The package in teh workspace directory

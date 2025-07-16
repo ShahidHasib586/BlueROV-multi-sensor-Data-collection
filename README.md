@@ -10,9 +10,10 @@ ROS 2 package for autonomous control of BlueROV underwater vehicles, featuring M
 - [Usage](#usage)
   - [Parallel Execution](#parallel-execution-recommended)
   - [Individual Components](#individual-components)
+- [Package Structure](#package-structure)
 - [🎥How to Record and Play a ROS 2 Bag from Camera](#how-to-record-and-play-a-ros-2-bag-from-camera)
 - [Using Ping soner 360](#ping360)
-- [Package Structure](#package-structure)
+
 
 ## Features
 - **MAVROS Bridge**: Robust communication with Pixhawk flight controller

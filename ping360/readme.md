@@ -1,5 +1,8 @@
 ## Build The package in teh workspace directory
-
+First deactivate your conda environemnt
+```bash
+conda deactivate #if there is no venv actiavted than ignore this
+```
 ```bash
 colcon build
 ```

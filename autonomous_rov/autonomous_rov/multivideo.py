@@ -34,7 +34,7 @@ class BufferlessCapture:
         self.running = False
         self.cap.release()
 
-
+"""
 class BlueROVCamera(Node):
     def __init__(self):
         super().__init__('bluerov_camera_node')
@@ -63,7 +63,7 @@ class BlueROVCamera(Node):
             self.latest_frame = frame
         else:
             self.get_logger().warn("No frame received from BlueROV camera")
-
+"""
 
 class USBCamera(Node):
     def __init__(self):
@@ -104,7 +104,7 @@ class PCCamera(Node):
 
         
         # GStreamer pipeline for UDP stream
-        self.cap = cv2.VideoCapture('/dev/video7')
+        self.cap = cv2.VideoCapture('/dev/video6')
 
         if not self.cap.isOpened():
             self.get_logger().error("Failed to open PC camera.")
@@ -127,14 +127,14 @@ class PCCamera(Node):
 
 
 def main(args=None):
-    rclpy.init(args=args)
+    #rclpy.init(args=args)
 
-    bluerov_node = BlueROVCamera()
+    #bluerov_node = BlueROVCamera()
     usb_node = USBCamera()
     pc_node = PCCamera()
 
-    executor = MultiThreadedExecutor(num_threads=3)
-    executor.add_node(bluerov_node)
+    executor = MultiThreadedExecutor(num_threads=2)
+    #executor.add_node(bluerov_node)
     executor.add_node(usb_node)
     executor.add_node(pc_node)
 
@@ -144,8 +144,8 @@ def main(args=None):
 
     try:
         while rclpy.ok():
-            if bluerov_node.latest_frame is not None:
-                cv2.imshow("BlueROV Camera", bluerov_node.latest_frame)
+            #if bluerov_node.latest_frame is not None:
+                #cv2.imshow("BlueROV Camera", bluerov_node.latest_frame)
             
             if usb_node.latest_frame is not None:
                 cv2.imshow("USB Camera", usb_node.latest_frame)
@@ -161,16 +161,18 @@ def main(args=None):
     except KeyboardInterrupt:
         pass
     finally:
-        bluerov_node.cap.release()
+        #bluerov_node.cap.release()
         usb_node.cap.release()
         pc_node.cap.release()
-        bluerov_node.destroy_node()
+        #bluerov_node.destroy_node()
         usb_node.destroy_node()
         pc_node.destroy_node()
-        rclpy.shutdown()
+        #rclpy.shutdown()
         cv2.destroyAllWindows()
 
 
 
 if __name__ == '__main__':
+    rclpy.init()
     main()
+    rclpy.shutdown()

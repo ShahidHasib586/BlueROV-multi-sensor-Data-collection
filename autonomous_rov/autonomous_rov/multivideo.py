@@ -74,7 +74,7 @@ class USBCamera(Node):
 
         
         # GStreamer pipeline for UDP stream
-        self.cap = cv2.VideoCapture('/dev/video5') 
+        self.cap = cv2.VideoCapture('/dev/video4') 
 
         if not self.cap.isOpened():
             self.get_logger().error("Failed to open USB camera.")
@@ -126,6 +126,10 @@ class PCCamera(Node):
             self.get_logger().warn("No frame received from PC camera")
 
 def main():
+    already_initialized = rclpy.ok()
+    if not already_initialized:
+        rclpy.init()
+
     bluerov_node = BlueROVCamera()
     usb_node = USBCamera()
     pc_node = PCCamera()
@@ -165,8 +169,9 @@ def main():
         pc_node.destroy_node()
         cv2.destroyAllWindows()
 
+        if not already_initialized:
+            rclpy.shutdown()
+
 
 if __name__ == '__main__':
-    rclpy.init()
     main()
-    rclpy.shutdown()

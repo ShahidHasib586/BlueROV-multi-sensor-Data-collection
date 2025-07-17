@@ -100,23 +100,88 @@ ros2 run autonomous_rov video --ros-args -r __node:=video_node
 ```
 ## Package Structure
 ```
-bluerov_ws/
-├── autonomous_rov/
-│ ├── launch/ # Launch configurations
-│ │ ├── run_mavros.launch.py
-│ │ ├── run_listener.launch.py
-│ │ └── ...
-│ ├── config/ # YAML configuration files
-│ │ ├── mavros_params.yaml
-│ │ └── gamepad_mappings.yaml
-│ ├── autonomous_rov/ # Python source
-│ │ ├── init.py
-│ │ ├── video.py # OpenCV processing
-│ │ ├── listener.py # Sensor fusion
-│ │ └── ...
-│ ├── package.xml # ROS 2 package metadata
-│ └── setup.py # Python build config
-└── ...
+- bluerov_ws-main/
+    - .gitignore
+    - README.md
+    - Thruster and sensor calibration.odt
+    - Thruster and sensor calibration.pdf
+    - bag_to_video.py
+    - blueROV connection guide.odt
+    - blueROV connection guide.pdf
+    - autonomous_rov/
+        - package.xml
+        - setup.cfg
+        - setup.py
+        - autonomous_rov/
+            - 2 cam.py
+            - 3camera.py
+            - __init__.py
+            - camera_parameters.py
+            - image_processing_tracker.py
+            - listener.py
+            - multivideo.py
+            - multivideo_multi-threading isse.py
+            - pinger_node.py
+            - video.py
+        - config/
+            - xbox.config.yaml
+        - launch/
+            - run_gamepad.launch
+            - run_listener.launch
+            - run_mavros.launch
+            - run_video.launch
+        - resource/
+            - autonomous_rov
+        - test/
+            - test_copyright.py
+            - test_flake8.py
+            - test_pep257.py
+    - ping360/
+        - readme.md
+        - ping360_sonar/
+            - CMakeLists.txt
+            - find_usb_port.sh
+            - package.xml
+            - img/
+                - print.png
+            - include/
+                - ping360_sonar/
+                    - ping360_node.h
+                    - sector.h
+                    - sonar_interface.h
+            - launch/
+                - run_pinger.launch
+            - ping360_sonar/
+                - __init__.py
+                - sonar_interface.py
+            - src/
+                - CMakeLists.txt
+                - ping360.cpp
+                - ping360.py
+                - ping360_node.cpp
+                - sector.cpp
+                - sonar_interface.cpp
+                - ping-cpp/
+                    - src/
+                        - device/
+                            - CMakeLists.txt
+                            - ping-device-ping1d.cpp
+                            - ping-device-ping1d.h
+                            - ping-device-ping360.cpp
+                            - ping-device-ping360.h
+                            - ping-device.cpp
+                            - ping-device.h
+                        - hal/
+                            - CMakeLists.txt
+                            - link/
+                                - ping-port.h
+                                - desktop/
+                                    - abstract-link.cpp
+                                    - abstract-link.h
+                                    - serial-link.cpp
+                                    - serial-link.h
+                                    - udp-link.cpp
+
 ```
 # 🎥 How to Record and Play a ROS 2 Bag from Camera
 

@@ -447,6 +447,33 @@ This should work fine and you should see the soner data. The data field from the
 
 
 
+## Run Cameras and Sonar Together (Multithreaded)
+
+This launches all three cameras and the Ping360 sonar in a synchronized multithreaded ROS 2 node:
+```bash
+ros2 run autonomous_rov synced_node
+```
+ This node starts:
+
+  All 3 camera streams (BlueROV, USB, and PC)
+
+  The Ping360 sonar interface
+  in parallel threads using rclpy's executor model.
+
+## Run Individual Modules (For Debugging)
+
+If you want to run the components separately:
+
+  Cameras only (multivideo):
+```bash
+ros2 run autonomous_rov multivideo
+```
+  Sonar only (ping360):
+```bash
+ros2 run ping360_sonar ping360.py
+```
+
+
 
 
 

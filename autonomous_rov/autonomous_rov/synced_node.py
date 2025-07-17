@@ -3,7 +3,9 @@ from rclpy.node import Node
 from threading import Thread
 
 from autonomous_rov.multivideo import main as run_camera_main
-from ping360_sonar.src.ping360 import run_sonar_main
+#from ping360_sonar.src.ping360 import run_sonar_main
+from ping360_sonar.ping360 import run_sonar_main
+
 
 class SyncedNode(Node):
     def __init__(self):

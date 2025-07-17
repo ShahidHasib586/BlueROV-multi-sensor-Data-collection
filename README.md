@@ -11,7 +11,7 @@ ROS 2 package for autonomous control of BlueROV underwater vehicles, featuring M
   - [Parallel Execution](#parallel-execution-recommended)
   - [Individual Components](#individual-components)
 - [Package Structure](#package-structure)
-- [🎥How to Record and Play a ROS 2 Bag from Camera](#how-to-record-and-play-a-ros-2-bag-from-camera)
+- [How to Record and Play a ROS 2 Bag from Camera](#how-to-record-and-play-a-ros-2-bag-from-camera)
 - [Using Ping soner 360](#ping360)
 
 
@@ -183,9 +183,9 @@ ros2 run autonomous_rov video --ros-args -r __node:=video_node
                                     - udp-link.cpp
 
 ```
-# 🎥 How to Record and Play a ROS 2 Bag from Camera
+# How to Record and Play a ROS 2 Bag from Camera
 
-## 🔍 Step 1: Find the Actual Image Topic
+## Step 1: Find the Actual Image Topic
 
 First, list available image-related topics:
 ```bash
@@ -201,7 +201,7 @@ You should see:
 
 Type: sensor_msgs/msg/Image
 
-## 📀 Step 2: Record the Image Topic to a Bag
+## Step 2: Record the Image Topic to a Bag
 
 To start recording:
 ```bash
@@ -211,7 +211,7 @@ Replace my_camera_bag with your desired folder name.
 
 Press Ctrl+C to stop recording.
 
-## ▶️ Step 3: Play the Bag
+## Step 3: Play the Bag
 
 To play back the recorded video:
 ```bash
@@ -221,7 +221,7 @@ The --loop option will continuously replay the bag.
 
 Remove --loop if you only want to play it once.
 
-## 🖼 Step 4: View the Camera Video
+## Step 4: View the Camera Video
 
 In a separate terminal, run:
 ```bash
@@ -416,7 +416,7 @@ python setup.py install --user
 ```
 ## warning you may need to use --break-system-packages option otherwise it wont install as your environment maybe procted and externally managed.
 ### !!! For related discussion and potential fixes, see this Blue Robotics forum thread:
-👉 [Module error in ping-python – Blue Robotics Forum](https://discuss.bluerobotics.com/t/module-error-in-ping-python/8128)
+ [Module error in ping-python – Blue Robotics Forum](https://discuss.bluerobotics.com/t/module-error-in-ping-python/8128)
 
 
 ## Now run

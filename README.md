@@ -100,7 +100,7 @@ ros2 run autonomous_rov video --ros-args -r __node:=video_node
 ```
 ## Package Structure
 ```
-- bluerov_ws-main/
+- bluerov_ws/
     - .gitignore
     - README.md
     - Thruster and sensor calibration.odt

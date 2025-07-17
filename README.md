@@ -358,7 +358,19 @@ ros2 run rqt_image_view rqt_image_view
 ros2 bag record /bluerov_camera/image_raw /pc_camera/image_raw /usb_camera/image_raw -o /media/shahidhasib586/LaCie/rosbags/multivideo_bag
 ```
 
+##  FCU dont support error:!!!
 
+if you encounter this error: [WARN] [bluerov2.sys]: VER: your FCU don't support AUTOPILOT_VERSION, switched to default capabilities
+
+you sould clean and rebuild your workspace.
+
+```bash
+cd ~/bluerov_ws
+rm -rf build/ install/ log/
+colcon build
+source install/setup.bash
+
+```
 ## ping360
 ### How to use ping soner360!!!
 

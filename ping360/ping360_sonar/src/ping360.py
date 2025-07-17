@@ -252,17 +252,20 @@ class Ping360_node(Node):
             self.image_pub.publish(self.image)
 
 def run_sonar_main():
-    rclpy.init()
     node = Ping360_node()
     executor = SingleThreadedExecutor()
     executor.add_node(node)
 
-    while rclpy.ok():
-        node.refresh()
-        executor.spin_once()
-
-    rclpy.shutdown()
+    try:
+        while rclpy.ok():
+            node.refresh()
+            executor.spin_once()
+    finally:
+        node.destroy_node()
 
 
 if __name__ == "__main__":
+    rclpy.init()
     run_sonar_main()
+    rclpy.shutdown()
+

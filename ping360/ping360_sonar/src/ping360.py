@@ -231,7 +231,7 @@ class Ping360_node(Node):
         half_size = self.image.step // 2
         self.sector.init(self.sonar.currentAngle(), self.sonar.angleStep())
         length = len(self.sonar.data)
-        threshold = self.get_parameter('image_min_threshold').value  # 🔥 get user-defined threshold
+        threshold = self.get_parameter('image_min_threshold').value  # get user-defined threshold
         x = 0
         y = 0
         while True:

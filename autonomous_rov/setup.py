@@ -29,6 +29,7 @@ setup(
         'listener = autonomous_rov.listener:main',
         'video = autonomous_rov.video:main',
         'pinger_node = autonomous_rov.pinger_node:main',
+        'synced_node = autonomous_rov.synced_node:main',
         'image_processing_tracker = autonomous_rov.image_processing_tracker:main'
         ],       
         

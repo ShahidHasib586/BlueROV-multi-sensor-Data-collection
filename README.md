@@ -45,7 +45,7 @@ cd ~/bluerov_ws/src
 ```
 # Clone repository
 ```bash
-git clone https://github.com/shahidhasib586/bluerov_ws.git
+git clone https://github.com/ShahidHasib586/BlueROV-multi-sensor-Data-collection.git
 ```
 
 # Install dependencies

@@ -1,0 +1,3 @@
+/bluerov2/joy_node:
+  ros__parameters:
+    autorepeat_rate: 0.0

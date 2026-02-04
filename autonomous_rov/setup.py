@@ -28,8 +28,14 @@ setup(
     'console_scripts': [
         'listener = autonomous_rov.listener:main',
         'video = autonomous_rov.video:main',
+        'camera = autonomous_rov.camera:main',
+        'multivideo = autonomous_rov.multivideo:main',
         'pinger_node = autonomous_rov.pinger_node:main',
         'synced_node = autonomous_rov.synced_node:main',
+<<<<<<< HEAD
+=======
+        'synced_node_withoutBLcam = autonomous_rov.synced_node_withoutBLcam:main',
+>>>>>>> dde09d2 (Update multivideo + add UI/streaming improvements)
         'image_processing_tracker = autonomous_rov.image_processing_tracker:main'
         ],       
         

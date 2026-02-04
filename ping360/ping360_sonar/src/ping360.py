@@ -231,7 +231,11 @@ class Ping360_node(Node):
         half_size = self.image.step // 2
         self.sector.init(self.sonar.currentAngle(), self.sonar.angleStep())
         length = len(self.sonar.data)
+<<<<<<< HEAD
         threshold = self.get_parameter('image_min_threshold').value  # get user-defined threshold
+=======
+        threshold = self.get_parameter('image_min_threshold').value  #  get user-defined threshold
+>>>>>>> dde09d2 (Update multivideo + add UI/streaming improvements)
         x = 0
         y = 0
         while True:
@@ -252,10 +256,15 @@ class Ping360_node(Node):
             self.image_pub.publish(self.image)
 
 def run_sonar_main():
+<<<<<<< HEAD
+=======
+    rclpy.init()
+>>>>>>> dde09d2 (Update multivideo + add UI/streaming improvements)
     node = Ping360_node()
     executor = SingleThreadedExecutor()
     executor.add_node(node)
 
+<<<<<<< HEAD
     try:
         while rclpy.ok():
             node.refresh()
@@ -269,3 +278,14 @@ if __name__ == "__main__":
     run_sonar_main()
     rclpy.shutdown()
 
+=======
+    while rclpy.ok():
+        node.refresh()
+        executor.spin_once()
+
+    rclpy.shutdown()
+
+
+if __name__ == "__main__":
+    run_sonar_main()
+>>>>>>> dde09d2 (Update multivideo + add UI/streaming improvements)

@@ -1,8 +1,12 @@
 ## Build The package in teh workspace directory
+<<<<<<< HEAD
 First deactivate your conda environemnt
 ```bash
 conda deactivate #if there is no venv actiavted than ignore this
 ```
+=======
+
+>>>>>>> dde09d2 (Update multivideo + add UI/streaming improvements)
 ```bash
 colcon build
 ```

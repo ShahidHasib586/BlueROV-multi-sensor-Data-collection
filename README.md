@@ -29,6 +29,13 @@ ROS 2 package for autonomous control of BlueROV underwater vehicles, featuring M
 - ROS 2 Humble Hawksbill
 - Python 3.8+
 
+
+### RUN THE FOLLOWING CODE AND YOU ARE ALL SET
+```bash
+python3 bluerov/bluerov_ws/BlueROV-multi-sensor-Data-collection/tools/ui/bluerov_ui_tk.py
+
+```
+
 ```bash
 # Install GNU Parallel
 sudo apt update && sudo apt install parallel

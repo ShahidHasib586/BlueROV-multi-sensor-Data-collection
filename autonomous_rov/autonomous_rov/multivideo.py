@@ -535,15 +535,9 @@ class MultiInputUI(tk.Tk):
 
         row += 1
 
-<<<<<<< HEAD
-        
-        # GStreamer pipeline for UDP stream
-        self.cap = cv2.VideoCapture('/dev/video6')
-=======
         # --- BlueROV RTSP ---
         ttk.Label(self.list_frame, text="BlueROV RTSP streams", font=("Arial", 11, "bold")).grid(row=row, column=0, sticky="w", pady=(6,4))
         row += 1
->>>>>>> dde09d2 (Update multivideo + add UI/streaming improvements)
 
         if self.var_rtsp_scan.get():
             host = self.var_rtsp_host.get().strip()
@@ -664,17 +658,10 @@ class MultiInputUI(tk.Tk):
         self.selected = None
         self.destroy()
 
-<<<<<<< HEAD
-def main():
-    already_initialized = rclpy.ok()
-    if not already_initialized:
-        rclpy.init()
-=======
 
 def main():
     ui = MultiInputUI()
     ui.mainloop()
->>>>>>> dde09d2 (Update multivideo + add UI/streaming improvements)
 
     if not ui.user_started or not ui.selected:
         return
@@ -692,37 +679,6 @@ def main():
         usb_fps=int(ui.var_usb_fps.get()),
     )
 
-<<<<<<< HEAD
-    executor_thread = threading.Thread(target=executor.spin, daemon=True)
-    executor_thread.start()
-
-    try:
-        while rclpy.ok():
-            if bluerov_node.latest_frame is not None:
-                cv2.imshow("BlueROV Camera", bluerov_node.latest_frame)
-
-            if usb_node.latest_frame is not None:
-                cv2.imshow("USB Camera", usb_node.latest_frame)
-
-            if pc_node.latest_frame is not None:
-                cv2.imshow("PC Camera", pc_node.latest_frame)
-
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
-
-            time.sleep(0.005)
-
-    except KeyboardInterrupt:
-        pass
-    finally:
-        bluerov_node.cap.release()
-        usb_node.cap.release()
-        pc_node.cap.release()
-        bluerov_node.destroy_node()
-        usb_node.destroy_node()
-        pc_node.destroy_node()
-        cv2.destroyAllWindows()
-=======
     executor = MultiThreadedExecutor(num_threads=8)
     executor.add_node(node)
 
@@ -737,10 +693,7 @@ def main():
         except Exception:
             pass
         rclpy.shutdown()
->>>>>>> dde09d2 (Update multivideo + add UI/streaming improvements)
 
-        if not already_initialized:
-            rclpy.shutdown()
 
 if __name__ == "__main__":
     main()

@@ -492,6 +492,11 @@ ros2 run autonomous_rov multivideo
 ros2 run ping360_sonar ping360.py
 ```
 
+run multicamera fusion
+```bash
+
+ros2 launch multicam_fusion_detector run.launch.py venv_python:=/home/lis/venvs/multicam_det_cpu/bin/python
+```
 
 
 

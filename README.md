@@ -501,26 +501,35 @@ ros2 launch multicam_fusion_detector run.launch.py venv_python:=/home/shahid/ven
 run on saved video
 on terminal 1 run
 ```bash
+source /opt/ros/jazzy/setup.bash
+source ~/bluerov/bluerov_ws/install/setup.bash
+
 ros2 run multicam_fusion_detector video_publisher --ros-args \
   -p video_path:=/home/shahid/videos/video_cam0.mp4 \
   -p topic_name:=/pc_usb0/image_raw \
-  -p fps:=30
+  -p fps:=30.0 \
+  -p frame_id:=cam0
 ```
 on terminal 2 run
 ```bash
+source /opt/ros/jazzy/setup.bash
+source ~/bluerov/bluerov_ws/install/setup.bash
+
 ros2 run multicam_fusion_detector video_publisher --ros-args \
   -p video_path:=/home/shahid/videos/video_cam1.mp4 \
   -p topic_name:=/pc_usb1/image_raw \
-  -p fps:=30
+  -p fps:=30.0 \
+  -p frame_id:=cam1
 ```
 And than run
 (If you don’t want to fight entry points at all, you can run it directly:)
 ```bash
 
-python3 ~/bluerov/bluerov_ws/src/multicam_fusion_detector/multicam_fusion_detector/video_publisher.py --ros-args \
-  -p video_path:=/home/shahid/videos/video_cam0.mp4 \
-  -p topic_name:=/pc_usb0/image_raw \
-  -p fps:=30
+source ~/venvs/multicam_det_cpu/bin/activate
+source /opt/ros/jazzy/setup.bash
+source ~/bluerov/bluerov_ws/install/setup.bash
+
+ros2 launch multicam_fusion_detector run.launch.py venv_python:=/home/shahid/venvs/multicam_det_cpu/bin/python
 
 
 
